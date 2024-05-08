@@ -66,10 +66,9 @@ def calculate_bleu(test_loader, model, tokenizer, device):
             # Extend the output_texts list instead of the output_tensor
             candidate =[pred.split() for pred in predictions]
             reference = [tgt.split() for tgt in actuals]
-            #Make refference list of list
-            #reference = [reference]    
-            print(reference)
-            print(candidate)
+  
+            #print(reference) #This shows the refference and candidate. Uncomment it to see the output
+            #print(candidate) # It shows better visualization of the output if you make it batch size as 1
 
             candidate = [' '.join(pred.split()) for pred in predictions]
             reference = [[' '.join(tgt.split())] for tgt in actuals]
