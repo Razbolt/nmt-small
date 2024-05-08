@@ -1,9 +1,12 @@
 import torch
 from torch.utils.data import DataLoader, TensorDataset
-from torchtext.data.metrics import bleu_score
+#from torchtext.data.metrics import bleu_score # changed from bleu_score
+from nltk.translate.bleu_score import sentence_bleu
 from transformers import MarianTokenizer
 from model import Encoder, Decoder, Seq2Seq
 from utils import collate_fn2,decode_tokens
+
+import sacrebleu
 #Setting the device 
 device = torch.device('mps' if torch.backends.mps.is_available() else 'cuda')
 print('Device set to {0}'.format(device))
@@ -31,12 +34,12 @@ print("Updated tokenizer vocab size:", vocab_size) #This one should be used
 
 # Load test data
 test_data = torch.load('test_data.pth')
-test_loader = DataLoader(test_data, batch_size=64,collate_fn=collate_fn2, shuffle=False)
+test_loader = DataLoader(test_data, batch_size=32,collate_fn=collate_fn2, shuffle=False)
 
 encoder = Encoder(vocab_size,300,1024,2,0.5)
 decoder = Decoder(vocab_size,300,1024,2,0.5)
 model = Seq2Seq(encoder, decoder, device).to(device)
-model.load_state_dict(torch.load('models/second-model.pth'))
+model.load_state_dict(torch.load('models/third-model.pth'))
 
 
 
@@ -44,9 +47,9 @@ model.load_state_dict(torch.load('models/second-model.pth'))
 def calculate_bleu(test_loader, model, tokenizer, device):
 
     model.eval()
-    targets = []
-    output_texts = []
-
+    reference = []
+    candidate = []
+    overall_score = 0
     with torch.no_grad():
         for batch in test_loader:
             input_ids, labels, attention_mask = batch
@@ -54,25 +57,34 @@ def calculate_bleu(test_loader, model, tokenizer, device):
             #print(input_ids, labels)
 
             #Forward pass 
-            outputs= model(input_ids,None,0)
+            outputs= model(input_ids,labels,0)
             outputs =outputs.argmax(-1)
 
             predictions = [tokenizer.decode(ids, skip_special_tokens=True) for ids in outputs]
             actuals = [tokenizer.decode(ids, skip_special_tokens=True) for ids in labels]
 
             # Extend the output_texts list instead of the output_tensor
-            output_texts.extend([pred.split() for pred in predictions])
-            targets.extend([tgt.split() for tgt in actuals])
+            candidate =[pred.split() for pred in predictions]
+            reference = [tgt.split() for tgt in actuals]
+            #Make refference list of list
+            #reference = [reference]    
+            print(reference)
+            print(candidate)
 
-            #print(output_list)
-            #print('---')
-            #print(targets)
+            candidate = [' '.join(pred.split()) for pred in predictions]
+            reference = [[' '.join(tgt.split())] for tgt in actuals]
+            # Calculate the BLEU score for each candidate and reference pair
+            scores = [sacrebleu.raw_corpus_bleu([cand], [ref]).score for cand, ref in zip(candidate, reference)]
+            average_score = sum(scores) / len(scores)
+            overall_score += average_score
 
-            for pred, act in zip(predictions, actuals):
-                print(f'Prediction: {pred} \nActual: {act}\n')
+    print(overall_score / len(test_loader))
+    return overall_score / len(test_loader)
+            #break
+            #for pred, act in zip(predictions, actuals):
+            #    print(f'Prediction: {pred} \nActual: {act}\n')
 
-    score = bleu_score(output_texts, targets)
-    return score
+
 
 
 

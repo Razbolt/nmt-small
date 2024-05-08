@@ -38,9 +38,10 @@ print("Updated tokenizer vocab size:", vocab_size) #This one should be used
 
 
 def clean_text(text):
-    text = re.sub(r'\d+', '<num>', text) #Replacing all numbers with <num>
-    text = re.sub(r'[^\w\s]', '', text) #Remove punctuation
-    text = re.sub(r'\s+', ' ', text) #Remove extra spaces
+    #text = re.sub(r'\d+', '<num>', text) #Replacing all numbers with <num>
+    #text = re.sub(r'[^\w\s]', '', text) #Remove punctuation
+    #text = re.sub(r'\s+', ' ', text) #Remove extra spaces
+    text = text.lower()
    
     return text
 
@@ -70,15 +71,15 @@ def evaluate_model(model,data_loader,criterion,device):
             src = input_ids.to(device)
             trg = labels.to(device)
 
-            src_sentences = tokenizer.batch_decode(input_ids, skip_special_tokens=True)
-            print("Source sentences:", src_sentences)
+            #src_sentences = tokenizer.batch_decode(input_ids, skip_special_tokens=True)
+            #print("Source sentences:", src_sentences)
             output = model(src, trg, 0) #turn off teacher forcing
             output_dim = output.shape[-1]
             output = output[1:].view(-1, output_dim)
             trg = trg[1:].view(-1)
 
-            output_sentences = tokenizer.batch_decode(output, skip_special_tokens=True)
-            print("Output sentences:", output_sentences)
+            #output_sentences = tokenizer.batch_decode(output, skip_special_tokens=True)
+            #print("Output sentences:", output_sentences)
 
             loss = criterion(output, trg)
             epoch_loss += loss.item()
@@ -87,12 +88,14 @@ def evaluate_model(model,data_loader,criterion,device):
 
 if __name__ == '__main__':
 
-    with open('english_sentences.txt', 'r') as f:
-        english_sentences = [line.strip() for line in f.readlines() if line.strip()]
+    with open('english_50k_clean.txt', 'r') as f:
+        english_sentences = [line for line in f.readlines() ]
 
-    with open('swedish_sentences.txt', 'r') as f:
-        swedish_sentences = [line.strip() for line in f.readlines() if line.strip()]
+    with open('swedish_50k_clean.txt', 'r') as f:
+        swedish_sentences = [line for line in f.readlines() ]
 
+
+    print(f"Number of sentences: {len(english_sentences), len(swedish_sentences)}")
     assert len(english_sentences) == len(swedish_sentences)
     print(f"Number of sentences: {len(english_sentences), len(swedish_sentences)}")
     
@@ -115,16 +118,10 @@ if __name__ == '__main__':
     print(tokenized_dataset['src'][114], '---',tokenized_dataset['tgt'][114])
     print(tokenized_dataset['input_ids'][114], '---',tokenized_dataset['labels'][114])
 
-    # Example sentence to be used for evaluation after each epoch
-    example_sentence = "kan du översätta det bra"
-    example_tokens = tokenizer.encode_plus(example_sentence, return_tensors="pt", add_special_tokens=True)
-    # Move example to the same device as your model
-    example_input_ids = example_tokens['input_ids'].to(device)
-
 
     set_seed(42)
-    train_loader = DataLoader(train_dataset, batch_size=2, collate_fn=collate_fn2, shuffle=True,drop_last=True)
-    val_loader = DataLoader(val_dataset, batch_size=2, collate_fn=collate_fn2, shuffle=False)
+    train_loader = DataLoader(train_dataset, batch_size=32, collate_fn=collate_fn2, shuffle=True,drop_last=True)
+    val_loader = DataLoader(val_dataset, batch_size=32, collate_fn=collate_fn2, shuffle=False)
 
     test_loader = DataLoader(test_dataset, batch_size=32, collate_fn=collate_fn2, shuffle=False)
 
@@ -140,7 +137,7 @@ if __name__ == '__main__':
     model.to(device)
 
     clip = 1.0
-    number_of_epochs = 30
+    number_of_epochs = 15
     criterion = torch.nn.CrossEntropyLoss(ignore_index= tokenizer.pad_token_id)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
@@ -165,10 +162,11 @@ if __name__ == '__main__':
             print(f"Epoch {epochs+1}, Batch Loss: {loss.item()}")
 
         average_loss = total_loss / len(train_loader)
-        #validation_loss = evaluate_model(model, val_loader, criterion, device)
-        #print(f'Epoch: {epochs+1}, Validation Loss: {validation_loss:.4f}')
         print(f"Epoch {epochs+1} Average Loss: {average_loss}")
-        #break
+        validation_loss = evaluate_model(model, val_loader, criterion, device)
+        print(f'Epoch: {epochs+1}, Validation Loss: {validation_loss:.4f}')
+        
+       
 
         
     torch.save(model.state_dict(), 'models/third-model.pth')
