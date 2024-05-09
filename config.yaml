@@ -1,0 +1,11 @@
+# config.yaml
+
+logger:
+  experiment_name: 'English_To_Swedish'
+  project: 'Translation'
+  entity: 'vitsiozo'
+
+model_settings:
+  num_epochs: 10
+  learning_rate: 0.001
+  batch_size: 64

@@ -1,5 +1,5 @@
 from datasets import load_dataset, Dataset
-from transformers import MarianTokenizer
+#from transformers import MarianTokenizer
 import sentencepiece as spm 
 import re
 from torch.utils.data import DataLoader
@@ -9,12 +9,16 @@ from torch.utils.data import random_split
 import torch.nn as nn
 
 from utils import collate_fn2, collate_fn, set_seed, decode_tokens, init_weights
+from utils import parse_arguments, read_settings
 from model import Encoder, Decoder, Seq2Seq
+from logger import Logger
+
+
 #Setting the device 
 device = torch.device('mps' if torch.backends.mps.is_available() else 'cuda')
 print('Device set to {0}'.format(device))
 
-tokenizer = MarianTokenizer.from_pretrained('Helsinki-NLP/opus-mt-en-sv')
+tokenizer = MarianTokenizer.from_pretrained('./opus-mt-en-sv')
 
 num_token_id = tokenizer.convert_tokens_to_ids('<num>')
 if num_token_id == tokenizer.unk_token_id:  # Checking if <num> is recognized , they should be equal id since above convertion makes <num> as unk
@@ -33,8 +37,6 @@ print(f'eos_id:',tokenizer.eos_token_id,'bos_id:',tokenizer.bos_token_id,'pad_id
 print('Tokenizer vocab size:',tokenizer.vocab_size)
 vocab_size = len(tokenizer.get_vocab())
 print("Updated tokenizer vocab size:", vocab_size) #This one should be used
-
-
 
 
 def clean_text(text):
@@ -86,7 +88,25 @@ def evaluate_model(model,data_loader,criterion,device):
     return epoch_loss / len(data_loader)
     
 
-if __name__ == '__main__':
+def main():
+
+    args = parse_arguments()
+
+    # Read the settings from the YAML file
+    settings = read_settings(args.config)
+
+    config = settings['model_settings']
+   
+    # Initialize logger
+    logger_settings = settings['logger']
+    experiment_name = logger_settings['experiment_name']
+    project = logger_settings['project']
+    entity = logger_settings['entity']
+    
+
+    my_logger = Logger(experiment_name, project, entity)
+    #my_logger.login()
+    my_logger.start(settings)
 
     with open('english_50k_clean.txt', 'r') as f:
         english_sentences = [line for line in f.readlines() ]
@@ -125,19 +145,15 @@ if __name__ == '__main__':
 
     test_loader = DataLoader(test_dataset, batch_size=32, collate_fn=collate_fn2, shuffle=False)
 
-
     encoder = Encoder(vocab_size,300,1024,2,0.5)
     decoder = Decoder(vocab_size,300,1024,2,0.5)
     model = Seq2Seq(encoder, decoder, device)
-
-
-
 
     model.apply(init_weights)
     model.to(device)
 
     clip = 1.0
-    number_of_epochs = 15
+    number_of_epochs = 1
     criterion = torch.nn.CrossEntropyLoss(ignore_index= tokenizer.pad_token_id)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
@@ -165,12 +181,17 @@ if __name__ == '__main__':
         print(f"Epoch {epochs+1} Average Loss: {average_loss}")
         validation_loss = evaluate_model(model, val_loader, criterion, device)
         print(f'Epoch: {epochs+1}, Validation Loss: {validation_loss:.4f}')
-        
-       
+        # Logging
+        my_logger.log({
+            'epoch': epochs +1,
+            'train_loss': average_loss,
+            'val_loss': validation_loss,
+        })   
 
         
     torch.save(model.state_dict(), 'models/third-model.pth')
     print("Output shape:", output.shape)  # Expected shape: [batch_size, trg_len, TRG_VOCAB_SIZE]
 
-        
+if __name__ == '__main__':
+    main()      
         

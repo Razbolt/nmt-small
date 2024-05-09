@@ -1,0 +1,265 @@
+2024-05-09 11:19:35,401 INFO    StreamThr :6259 [internal.py:wandb_internal():86] W&B internal server running at pid: 6259, started at: 2024-05-09 11:19:35.400625
+2024-05-09 11:19:35,404 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status
+2024-05-09 11:19:35,416 INFO    WriterThread:6259 [datastore.py:open_for_write():87] open: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/run-717w6ew9.wandb
+2024-05-09 11:19:35,417 DEBUG   SenderThread:6259 [sender.py:send():379] send: header
+2024-05-09 11:19:35,477 DEBUG   SenderThread:6259 [sender.py:send():379] send: run
+2024-05-09 11:19:35,878 INFO    SenderThread:6259 [dir_watcher.py:__init__():211] watching files in: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files
+2024-05-09 11:19:35,878 INFO    SenderThread:6259 [sender.py:_start_run_threads():1124] run started: 717w6ew9 with start time 1715249975.401382
+2024-05-09 11:19:35,895 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: check_version
+2024-05-09 11:19:35,896 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: check_version
+2024-05-09 11:19:35,991 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: run_start
+2024-05-09 11:19:36,009 DEBUG   HandlerThread:6259 [system_info.py:__init__():26] System info init
+2024-05-09 11:19:36,009 DEBUG   HandlerThread:6259 [system_info.py:__init__():41] System info init done
+2024-05-09 11:19:36,010 INFO    HandlerThread:6259 [system_monitor.py:start():194] Starting system monitor
+2024-05-09 11:19:36,010 INFO    SystemMonitor:6259 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2024-05-09 11:19:36,010 INFO    HandlerThread:6259 [system_monitor.py:probe():214] Collecting system info
+2024-05-09 11:19:36,011 INFO    SystemMonitor:6259 [interfaces.py:start():190] Started cpu monitoring
+2024-05-09 11:19:36,011 INFO    SystemMonitor:6259 [interfaces.py:start():190] Started disk monitoring
+2024-05-09 11:19:36,012 DEBUG   HandlerThread:6259 [system_info.py:probe():150] Probing system
+2024-05-09 11:19:36,012 INFO    SystemMonitor:6259 [interfaces.py:start():190] Started memory monitoring
+2024-05-09 11:19:36,012 INFO    SystemMonitor:6259 [interfaces.py:start():190] Started network monitoring
+2024-05-09 11:19:36,026 DEBUG   HandlerThread:6259 [system_info.py:_probe_git():135] Probing git
+2024-05-09 11:19:36,081 DEBUG   HandlerThread:6259 [system_info.py:_probe_git():143] Probing git done
+2024-05-09 11:19:36,081 DEBUG   HandlerThread:6259 [system_info.py:probe():198] Probing system done
+2024-05-09 11:19:36,081 DEBUG   HandlerThread:6259 [system_monitor.py:probe():223] {'os': 'macOS-10.16-x86_64-i386-64bit', 'python': '3.9.2', 'heartbeatAt': '2024-05-09T10:19:36.012191', 'startedAt': '2024-05-09T10:19:35.383855', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': '/Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/main.py', 'codePathLocal': 'main.py', 'codePath': 'main.py', 'git': {'remote': 'https://github.com/Razbolt/nmt-small.git', 'commit': '665459aeff2b539aacfc43c3e5a29c5b49f1d8b5'}, 'email': 'greg@technotropy.com', 'root': '/Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small', 'host': 'vMac.local', 'username': 'vitsiozo', 'executable': '/Library/Frameworks/Python.framework/Versions/3.9/bin/python3', 'cpu_count': 8, 'cpu_count_logical': 8, 'cpu_freq': {'current': 2400, 'min': 2400, 'max': 2400}, 'cpu_freq_per_core': [{'current': 2400, 'min': 2400, 'max': 2400}], 'disk': {'/': {'total': 460.4317207336426, 'used': 9.53878402709961}}, 'memory': {'total': 8.0}}
+2024-05-09 11:19:36,082 INFO    HandlerThread:6259 [system_monitor.py:probe():224] Finished collecting system info
+2024-05-09 11:19:36,082 INFO    HandlerThread:6259 [system_monitor.py:probe():227] Publishing system info
+2024-05-09 11:19:36,082 INFO    HandlerThread:6259 [system_monitor.py:probe():229] Finished publishing system info
+2024-05-09 11:19:36,085 DEBUG   SenderThread:6259 [sender.py:send():379] send: files
+2024-05-09 11:19:36,085 INFO    SenderThread:6259 [sender.py:_save_file():1390] saving file wandb-metadata.json with policy now
+2024-05-09 11:19:36,193 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: python_packages
+2024-05-09 11:19:36,193 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: python_packages
+2024-05-09 11:19:36,194 DEBUG   SenderThread:6259 [sender.py:send():379] send: telemetry
+2024-05-09 11:19:36,194 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: internal_messages
+2024-05-09 11:19:36,195 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: stop_status
+2024-05-09 11:19:36,195 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: stop_status
+2024-05-09 11:19:36,638 INFO    wandb-upload_0:6259 [upload_job.py:push():131] Uploaded file /var/folders/qh/s4x89xp56wx39j0klsspgc0c0000gn/T/tmpekoi2c7ewandb/x5u0jklm-wandb-metadata.json
+2024-05-09 11:19:36,884 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:19:36,885 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/requirements.txt
+2024-05-09 11:19:36,885 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/wandb-metadata.json
+2024-05-09 11:19:38,894 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:19:40,643 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:19:40,904 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:19:42,911 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:19:44,918 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:19:45,781 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:19:46,929 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:19:48,936 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:19:50,800 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:19:50,946 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:19:51,200 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: internal_messages
+2024-05-09 11:19:51,200 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: stop_status
+2024-05-09 11:19:51,201 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: stop_status
+2024-05-09 11:19:52,957 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:19:54,968 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:19:56,602 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:20:01,002 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:02,050 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:20:03,013 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:05,024 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:06,205 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: stop_status
+2024-05-09 11:20:06,205 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: internal_messages
+2024-05-09 11:20:06,206 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: stop_status
+2024-05-09 11:20:07,036 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:07,126 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:20:08,038 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/config.yaml
+2024-05-09 11:20:09,044 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:11,057 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:13,067 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:13,122 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:20:15,079 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:17,092 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:18,477 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:20:19,105 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:21,116 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:21,208 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: stop_status
+2024-05-09 11:20:21,208 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: internal_messages
+2024-05-09 11:20:21,208 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: stop_status
+2024-05-09 11:20:23,128 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:23,766 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:20:25,140 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:27,151 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:29,052 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:20:29,159 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:31,170 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:33,183 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:34,353 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:20:35,192 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:36,017 DEBUG   SystemMonitor:6259 [system_monitor.py:_start():172] Starting system metrics aggregation loop
+2024-05-09 11:20:36,024 DEBUG   SenderThread:6259 [sender.py:send():379] send: stats
+2024-05-09 11:20:36,210 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: stop_status
+2024-05-09 11:20:36,210 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: internal_messages
+2024-05-09 11:20:36,211 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: stop_status
+2024-05-09 11:20:37,203 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:39,215 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:39,544 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:20:43,243 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:45,257 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:45,548 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:20:47,268 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:49,279 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:51,020 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:20:51,216 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: internal_messages
+2024-05-09 11:20:51,216 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: stop_status
+2024-05-09 11:20:51,217 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: stop_status
+2024-05-09 11:20:51,290 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:53,302 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:55,311 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:56,494 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:20:57,324 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:20:59,330 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:21:01,344 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:21:01,687 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:21:03,351 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:21:05,362 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:21:06,029 DEBUG   SenderThread:6259 [sender.py:send():379] send: stats
+2024-05-09 11:21:06,220 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: internal_messages
+2024-05-09 11:21:06,220 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: stop_status
+2024-05-09 11:21:06,220 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: stop_status
+2024-05-09 11:21:07,369 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:21:07,476 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:21:09,380 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:21:11,404 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:21:13,054 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:21:13,080 DEBUG   SenderThread:6259 [sender.py:send():379] send: exit
+2024-05-09 11:21:13,081 INFO    SenderThread:6259 [sender.py:send_exit():586] handling exit code: 255
+2024-05-09 11:21:13,085 INFO    SenderThread:6259 [sender.py:send_exit():588] handling runtime: 97
+2024-05-09 11:21:13,089 INFO    SenderThread:6259 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2024-05-09 11:21:13,094 INFO    SenderThread:6259 [sender.py:send_exit():594] send defer
+2024-05-09 11:21:13,094 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:13,094 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 0
+2024-05-09 11:21:13,095 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:13,095 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 0
+2024-05-09 11:21:13,095 INFO    SenderThread:6259 [sender.py:transition_state():614] send defer: 1
+2024-05-09 11:21:13,095 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:13,095 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 1
+2024-05-09 11:21:13,095 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:13,095 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 1
+2024-05-09 11:21:13,095 INFO    SenderThread:6259 [sender.py:transition_state():614] send defer: 2
+2024-05-09 11:21:13,095 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:13,096 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 2
+2024-05-09 11:21:13,096 INFO    HandlerThread:6259 [system_monitor.py:finish():203] Stopping system monitor
+2024-05-09 11:21:13,096 DEBUG   SystemMonitor:6259 [system_monitor.py:_start():179] Finished system metrics aggregation loop
+2024-05-09 11:21:13,098 INFO    HandlerThread:6259 [interfaces.py:finish():202] Joined cpu monitor
+2024-05-09 11:21:13,098 DEBUG   SystemMonitor:6259 [system_monitor.py:_start():183] Publishing last batch of metrics
+2024-05-09 11:21:13,098 INFO    HandlerThread:6259 [interfaces.py:finish():202] Joined disk monitor
+2024-05-09 11:21:13,100 INFO    HandlerThread:6259 [interfaces.py:finish():202] Joined memory monitor
+2024-05-09 11:21:13,100 INFO    HandlerThread:6259 [interfaces.py:finish():202] Joined network monitor
+2024-05-09 11:21:13,100 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:13,100 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 2
+2024-05-09 11:21:13,100 INFO    SenderThread:6259 [sender.py:transition_state():614] send defer: 3
+2024-05-09 11:21:13,100 DEBUG   SenderThread:6259 [sender.py:send():379] send: stats
+2024-05-09 11:21:13,100 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:13,100 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 3
+2024-05-09 11:21:13,101 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:13,101 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 3
+2024-05-09 11:21:13,101 INFO    SenderThread:6259 [sender.py:transition_state():614] send defer: 4
+2024-05-09 11:21:13,101 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:13,101 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 4
+2024-05-09 11:21:13,101 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:13,101 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 4
+2024-05-09 11:21:13,101 INFO    SenderThread:6259 [sender.py:transition_state():614] send defer: 5
+2024-05-09 11:21:13,101 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:13,101 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 5
+2024-05-09 11:21:13,101 DEBUG   SenderThread:6259 [sender.py:send():379] send: summary
+2024-05-09 11:21:13,102 INFO    SenderThread:6259 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2024-05-09 11:21:13,102 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:13,102 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 5
+2024-05-09 11:21:13,102 INFO    SenderThread:6259 [sender.py:transition_state():614] send defer: 6
+2024-05-09 11:21:13,102 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:13,102 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 6
+2024-05-09 11:21:13,102 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:13,102 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 6
+2024-05-09 11:21:13,102 INFO    SenderThread:6259 [sender.py:transition_state():614] send defer: 7
+2024-05-09 11:21:13,102 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:21:13,103 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:13,103 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 7
+2024-05-09 11:21:13,103 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:13,103 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 7
+2024-05-09 11:21:13,416 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:21:13,417 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_created():271] file/dir created: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/wandb-summary.json
+2024-05-09 11:21:14,086 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: poll_exit
+2024-05-09 11:21:15,210 INFO    SenderThread:6259 [sender.py:transition_state():614] send defer: 8
+2024-05-09 11:21:15,210 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: poll_exit
+2024-05-09 11:21:15,211 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:15,214 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 8
+2024-05-09 11:21:15,215 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:15,216 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 8
+2024-05-09 11:21:15,216 INFO    SenderThread:6259 [job_builder.py:build():318] Attempting to build job artifact
+2024-05-09 11:21:15,221 INFO    SenderThread:6259 [job_builder.py:_get_source_type():455] is repo sourced job
+2024-05-09 11:21:15,424 INFO    Thread-12 :6259 [dir_watcher.py:_on_file_modified():288] file/dir modified: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:21:15,879 INFO    SenderThread:6259 [job_builder.py:build():431] adding wandb-job metadata file
+2024-05-09 11:21:15,887 INFO    SenderThread:6259 [sender.py:transition_state():614] send defer: 9
+2024-05-09 11:21:15,887 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:15,887 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 9
+2024-05-09 11:21:15,887 DEBUG   SenderThread:6259 [sender.py:send():379] send: artifact
+2024-05-09 11:21:16,098 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: poll_exit
+2024-05-09 11:21:16,972 INFO    wandb-upload_1:6259 [upload_job.py:push():89] Uploaded file /Users/vitsiozo/Library/Application Support/wandb/artifacts/staging/tmpez24ewse
+2024-05-09 11:21:17,059 INFO    wandb-upload_0:6259 [upload_job.py:push():89] Uploaded file /var/folders/qh/s4x89xp56wx39j0klsspgc0c0000gn/T/tmpuxb_gju_/wandb-job.json
+2024-05-09 11:21:17,956 INFO    SenderThread:6259 [sender.py:send_artifact():1468] sent artifact job-https___github.com_Razbolt_nmt-small.git_main.py - {'id': 'QXJ0aWZhY3Q6ODI4ODE0Njkx', 'state': 'PENDING', 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjE3MjUwMTI1OA==', 'latestArtifact': None}}
+2024-05-09 11:21:17,957 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:17,957 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 9
+2024-05-09 11:21:17,957 INFO    SenderThread:6259 [dir_watcher.py:finish():358] shutting down directory watcher
+2024-05-09 11:21:18,438 INFO    SenderThread:6259 [dir_watcher.py:finish():388] scan: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files
+2024-05-09 11:21:18,439 INFO    SenderThread:6259 [dir_watcher.py:finish():402] scan save: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/requirements.txt requirements.txt
+2024-05-09 11:21:18,440 INFO    SenderThread:6259 [dir_watcher.py:finish():402] scan save: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log output.log
+2024-05-09 11:21:18,445 INFO    SenderThread:6259 [dir_watcher.py:finish():402] scan save: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/config.yaml config.yaml
+2024-05-09 11:21:18,450 INFO    SenderThread:6259 [dir_watcher.py:finish():402] scan save: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/wandb-summary.json wandb-summary.json
+2024-05-09 11:21:18,455 INFO    SenderThread:6259 [dir_watcher.py:finish():402] scan save: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/wandb-metadata.json wandb-metadata.json
+2024-05-09 11:21:18,459 INFO    SenderThread:6259 [sender.py:transition_state():614] send defer: 10
+2024-05-09 11:21:18,459 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: poll_exit
+2024-05-09 11:21:18,460 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:18,460 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 10
+2024-05-09 11:21:18,461 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: status_report
+2024-05-09 11:21:18,461 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:18,461 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 10
+2024-05-09 11:21:18,462 INFO    SenderThread:6259 [file_pusher.py:finish():172] shutting down file pusher
+2024-05-09 11:21:18,803 INFO    wandb-upload_2:6259 [upload_job.py:push():131] Uploaded file /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/config.yaml
+2024-05-09 11:21:18,816 INFO    wandb-upload_1:6259 [upload_job.py:push():131] Uploaded file /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/requirements.txt
+2024-05-09 11:21:18,886 INFO    wandb-upload_0:6259 [upload_job.py:push():131] Uploaded file /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/output.log
+2024-05-09 11:21:18,895 INFO    wandb-upload_3:6259 [upload_job.py:push():131] Uploaded file /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/files/wandb-summary.json
+2024-05-09 11:21:19,101 INFO    Thread-11 :6259 [sender.py:transition_state():614] send defer: 11
+2024-05-09 11:21:19,102 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:19,102 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 11
+2024-05-09 11:21:19,102 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:19,102 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 11
+2024-05-09 11:21:19,103 INFO    SenderThread:6259 [file_pusher.py:join():178] waiting for file pusher
+2024-05-09 11:21:19,104 INFO    SenderThread:6259 [sender.py:transition_state():614] send defer: 12
+2024-05-09 11:21:19,104 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:19,104 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 12
+2024-05-09 11:21:19,104 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:19,104 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 12
+2024-05-09 11:21:19,105 INFO    SenderThread:6259 [file_stream.py:finish():614] file stream finish called
+2024-05-09 11:21:19,115 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: poll_exit
+2024-05-09 11:21:19,263 INFO    SenderThread:6259 [file_stream.py:finish():618] file stream finish is done
+2024-05-09 11:21:19,264 INFO    SenderThread:6259 [sender.py:transition_state():614] send defer: 13
+2024-05-09 11:21:19,264 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: poll_exit
+2024-05-09 11:21:19,264 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:19,265 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 13
+2024-05-09 11:21:19,265 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:19,266 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 13
+2024-05-09 11:21:19,266 INFO    SenderThread:6259 [sender.py:transition_state():614] send defer: 14
+2024-05-09 11:21:19,266 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: defer
+2024-05-09 11:21:19,267 INFO    HandlerThread:6259 [handler.py:handle_request_defer():172] handle defer: 14
+2024-05-09 11:21:19,267 DEBUG   SenderThread:6259 [sender.py:send():379] send: final
+2024-05-09 11:21:19,268 DEBUG   SenderThread:6259 [sender.py:send():379] send: footer
+2024-05-09 11:21:19,268 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: defer
+2024-05-09 11:21:19,268 INFO    SenderThread:6259 [sender.py:send_request_defer():610] handle sender defer: 14
+2024-05-09 11:21:19,269 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: poll_exit
+2024-05-09 11:21:19,270 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: poll_exit
+2024-05-09 11:21:19,270 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: poll_exit
+2024-05-09 11:21:19,271 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: poll_exit
+2024-05-09 11:21:19,271 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: server_info
+2024-05-09 11:21:19,272 DEBUG   SenderThread:6259 [sender.py:send_request():406] send_request: server_info
+2024-05-09 11:21:19,276 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: get_summary
+2024-05-09 11:21:19,278 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: sampled_history
+2024-05-09 11:21:19,279 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: internal_messages
+2024-05-09 11:21:19,396 INFO    MainThread:6259 [wandb_run.py:_footer_history_summary_info():3936] rendering history
+2024-05-09 11:21:19,397 INFO    MainThread:6259 [wandb_run.py:_footer_history_summary_info():3968] rendering summary
+2024-05-09 11:21:19,397 INFO    MainThread:6259 [wandb_run.py:_footer_sync_info():3895] logging synced files
+2024-05-09 11:21:19,399 DEBUG   HandlerThread:6259 [handler.py:handle_request():146] handle_request: shutdown
+2024-05-09 11:21:19,399 INFO    HandlerThread:6259 [handler.py:finish():866] shutting down handler
+2024-05-09 11:21:20,276 INFO    WriterThread:6259 [datastore.py:close():296] close: /Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/wandb/run-20240509_111935-717w6ew9/run-717w6ew9.wandb
+2024-05-09 11:21:20,398 INFO    SenderThread:6259 [sender.py:finish():1546] shutting down sender
+2024-05-09 11:21:20,398 INFO    SenderThread:6259 [file_pusher.py:finish():172] shutting down file pusher
+2024-05-09 11:21:20,398 INFO    SenderThread:6259 [file_pusher.py:join():178] waiting for file pusher

@@ -1,0 +1,45 @@
+{
+    "os": "macOS-10.16-x86_64-i386-64bit",
+    "python": "3.9.2",
+    "heartbeatAt": "2024-05-09T10:19:36.012191",
+    "startedAt": "2024-05-09T10:19:35.383855",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/main.py",
+    "codePathLocal": "main.py",
+    "codePath": "main.py",
+    "git": {
+        "remote": "https://github.com/Razbolt/nmt-small.git",
+        "commit": "665459aeff2b539aacfc43c3e5a29c5b49f1d8b5"
+    },
+    "email": "greg@technotropy.com",
+    "root": "/Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small",
+    "host": "vMac.local",
+    "username": "vitsiozo",
+    "executable": "/Library/Frameworks/Python.framework/Versions/3.9/bin/python3",
+    "cpu_count": 8,
+    "cpu_count_logical": 8,
+    "cpu_freq": {
+        "current": 2400,
+        "min": 2400,
+        "max": 2400
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2400,
+            "min": 2400,
+            "max": 2400
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 460.4317207336426,
+            "used": 9.53878402709961
+        }
+    },
+    "memory": {
+        "total": 8.0
+    }
+}

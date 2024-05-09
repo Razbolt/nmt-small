@@ -1,0 +1,62 @@
+Number of sentences: (49999, 49999)
+Number of sentences: (49999, 49999)
+Map:   0%|                                                                                                                 | 0/49999 [00:00<?, ? examples/s]/Users/vitsiozo/Library/Python/3.9/lib/python/site-packages/transformers/tokenization_utils_base.py:3921: UserWarning: `as_target_tokenizer` is deprecated and will be removed in v5 of Transformers. You can tokenize your labels by using the argument `text_target` of the regular `__call__` method (either in the same call as your input texts if you use the same keyword arguments, or in a separate call.
+  warnings.warn(
+
+
+
+
+
+
+Map:  94%|█████████████████████████████████████████████████████████████████████████████████████████████      | 47000/49999 [00:13<00:00, 3579.54 examples/s]
+<s> the order of business was adopted thus amended
+
+Map: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████| 49999/49999 [00:14<00:00, 3514.95 examples/s]
+[56435, 4, 348, 5, 761, 12959, 6, 2792, 1737, 34, 148, 531, 3701, 470, 7351, 75, 0] --- [56435, 15, 101, 4395, 6, 4554, 43, 885, 49104, 212, 1235, 30, 37, 8821, 42, 6080, 75, 2025, 99, 0]
+Epoch 1, Batch Loss: 10.94462776184082
+Epoch 1, Batch Loss: 10.86534595489502
+Epoch 1, Batch Loss: 10.632445335388184
+Epoch 1, Batch Loss: 9.27159595489502
+Epoch 1, Batch Loss: 8.155566215515137
+Epoch 1, Batch Loss: 7.764734268188477
+Epoch 1, Batch Loss: 6.853140354156494
+Epoch 1, Batch Loss: 6.574143886566162
+Epoch 1, Batch Loss: 6.40934419631958
+Epoch 1, Batch Loss: 6.340313911437988
+Epoch 1, Batch Loss: 6.250532627105713
+Epoch 1, Batch Loss: 6.347809791564941
+Epoch 1, Batch Loss: 6.158145904541016
+Epoch 1, Batch Loss: 6.278737545013428
+Epoch 1, Batch Loss: 6.08997917175293
+Epoch 1, Batch Loss: 6.474931240081787
+Epoch 1, Batch Loss: 6.297950267791748
+Epoch 1, Batch Loss: 5.785932540893555
+Epoch 1, Batch Loss: 5.80330753326416
+Epoch 1, Batch Loss: 6.291106224060059
+Epoch 1, Batch Loss: 5.766178131103516
+Epoch 1, Batch Loss: 6.084439754486084
+Epoch 1, Batch Loss: 6.087009906768799
+Epoch 1, Batch Loss: 5.976950645446777
+Epoch 1, Batch Loss: 5.914549827575684
+Epoch 1, Batch Loss: 5.9948344230651855
+Epoch 1, Batch Loss: 5.832313537597656
+Epoch 1, Batch Loss: 5.844057559967041
+Epoch 1, Batch Loss: 5.814737319946289
+Epoch 1, Batch Loss: 5.868748188018799
+Epoch 1, Batch Loss: 6.034827709197998
+Epoch 1, Batch Loss: 5.9308552742004395
+Epoch 1, Batch Loss: 6.102387428283691
+Epoch 1, Batch Loss: 5.713213920593262
+Epoch 1, Batch Loss: 5.9194746017456055
+Epoch 1, Batch Loss: 5.951262474060059
+Epoch 1, Batch Loss: 5.877686500549316
+Epoch 1, Batch Loss: 5.906304359436035
+Epoch 1, Batch Loss: 5.714415073394775
+Epoch 1, Batch Loss: 5.897574424743652
+Epoch 1, Batch Loss: 5.8628153800964355
+Traceback (most recent call last):
+  File "/Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/main.py", line 195, in <module>
+    main()
+  File "/Users/vitsiozo/Code/Sequence/CurrentBest/nmt-small/main.py", line 176, in main
+    total_loss += loss.item()
+KeyboardInterrupt
