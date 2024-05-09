@@ -1,5 +1,5 @@
 from datasets import load_dataset, Dataset
-#from transformers import MarianTokenizer
+from transformers import MarianTokenizer
 import sentencepiece as spm 
 import re
 from torch.utils.data import DataLoader
@@ -8,14 +8,13 @@ from torch.nn.utils.rnn import pad_sequence # For dynamic padding
 from torch.utils.data import random_split
 import torch.nn as nn
 
-from utils import collate_fn2, collate_fn, set_seed, decode_tokens, init_weights
-from utils import parse_arguments, read_settings
+from utils import collate_fn2, collate_fn, set_seed, decode_tokens, init_weights, parse_arguments, read_settings
 from model import Encoder, Decoder, Seq2Seq
 from logger import Logger
 
 
 #Setting the device 
-device = torch.device('mps' if torch.backends.mps.is_available() else 'cuda')
+device = torch.device('mps' if torch.backends.mps.is_available() else ('cuda' if torch.cuda.is_available() else 'cpu'))
 print('Device set to {0}'.format(device))
 
 tokenizer = MarianTokenizer.from_pretrained('./opus-mt-en-sv')
@@ -95,8 +94,10 @@ def main():
     # Read the settings from the YAML file
     settings = read_settings(args.config)
 
+    paths = settings['sentence_paths']
+
     config = settings['model_settings']
-   
+    number_of_epochs = config['num_epochs']
     # Initialize logger
     logger_settings = settings['logger']
     experiment_name = logger_settings['experiment_name']
@@ -108,10 +109,10 @@ def main():
     #my_logger.login()
     my_logger.start(settings)
 
-    with open('english_50k_clean.txt', 'r') as f:
+    with open(paths['file_en'], 'r') as f:
         english_sentences = [line for line in f.readlines() ]
 
-    with open('swedish_50k_clean.txt', 'r') as f:
+    with open(paths['file_sv'], 'r') as f:
         swedish_sentences = [line for line in f.readlines() ]
 
 
@@ -140,10 +141,10 @@ def main():
 
 
     set_seed(42)
-    train_loader = DataLoader(train_dataset, batch_size=32, collate_fn=collate_fn2, shuffle=True,drop_last=True)
-    val_loader = DataLoader(val_dataset, batch_size=32, collate_fn=collate_fn2, shuffle=False)
+    train_loader = DataLoader(train_dataset, config['batch_size'], collate_fn=collate_fn2, shuffle=True,drop_last=True)
+    val_loader = DataLoader(val_dataset, config['batch_size'], collate_fn=collate_fn2, shuffle=False)
 
-    test_loader = DataLoader(test_dataset, batch_size=32, collate_fn=collate_fn2, shuffle=False)
+    test_loader = DataLoader(test_dataset, config['batch_size'], collate_fn=collate_fn2, shuffle=False)
 
     encoder = Encoder(vocab_size,300,1024,2,0.5)
     decoder = Decoder(vocab_size,300,1024,2,0.5)
@@ -153,9 +154,9 @@ def main():
     model.to(device)
 
     clip = 1.0
-    number_of_epochs = 1
+    
     criterion = torch.nn.CrossEntropyLoss(ignore_index= tokenizer.pad_token_id)
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+    optimizer = torch.optim.Adam(model.parameters(), lr=config['learning_rate'])
 
     for epochs in range(number_of_epochs): # Number of epochs
 

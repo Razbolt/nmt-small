@@ -4,13 +4,17 @@ from torch.utils.data import DataLoader, TensorDataset
 from nltk.translate.bleu_score import sentence_bleu
 from transformers import MarianTokenizer
 from model import Encoder, Decoder, Seq2Seq
-from utils import collate_fn2,decode_tokens
+from utils import collate_fn2, decode_tokens, parse_arguments, read_settings
 
 import sacrebleu
 #Setting the device 
-device = torch.device('mps' if torch.backends.mps.is_available() else 'cuda')
+device = torch.device('mps' if torch.backends.mps.is_available() else ('cuda' if torch.cuda.is_available() else 'cpu'))
 print('Device set to {0}'.format(device))
 
+# Read config settings
+args = parse_arguments()
+settings = read_settings(args.config)
+config = settings['model_settings']
 
 tokenizer = MarianTokenizer.from_pretrained('Helsinki-NLP/opus-mt-en-sv')
 
@@ -31,18 +35,14 @@ print('Tokenizer vocab size:',tokenizer.vocab_size)
 vocab_size = len(tokenizer.get_vocab())
 print("Updated tokenizer vocab size:", vocab_size) #This one should be used
 
-
 # Load test data
 test_data = torch.load('test_data.pth')
-test_loader = DataLoader(test_data, batch_size=32,collate_fn=collate_fn2, shuffle=False)
+test_loader = DataLoader(test_data, config['batch_size'],collate_fn=collate_fn2, shuffle=False)
 
 encoder = Encoder(vocab_size,300,1024,2,0.5)
 decoder = Decoder(vocab_size,300,1024,2,0.5)
 model = Seq2Seq(encoder, decoder, device).to(device)
 model.load_state_dict(torch.load('models/third-model.pth'))
-
-
-
 
 def calculate_bleu(test_loader, model, tokenizer, device):
 
@@ -83,10 +83,6 @@ def calculate_bleu(test_loader, model, tokenizer, device):
             #break
             #for pred, act in zip(predictions, actuals):
             #    print(f'Prediction: {pred} \nActual: {act}\n')
-
-
-
-
 
 if __name__ == '__main__':
     bleu_score = calculate_bleu(test_loader, model, tokenizer, device)
