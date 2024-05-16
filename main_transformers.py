@@ -13,6 +13,8 @@ from model import Encoder, Decoder, Seq2Seq
 from model_transformers import Transformers
 from model_transformers2 import TransformerImproved, Encoder, Decoder
 
+from transformers import T5ForConditionalGeneration, T5Tokenizer
+
 #Setting the device 
 #TODO: Change the device to cuda whenever you set it to Hyperion mode !
 
