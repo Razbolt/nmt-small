@@ -11,6 +11,7 @@ import torch.nn as nn
 from utils import collate_fn2, collate_fn, set_seed, decode_tokens, init_weights
 from model import Encoder, Decoder, Seq2Seq
 from model_transformers import Transformers
+from model_transformers2 import TransformerImproved, Encoder, Decoder
 
 #Setting the device 
 #TODO: Change the device to cuda whenever you set it to Hyperion mode !
@@ -147,22 +148,23 @@ if __name__ == '__main__':
     #TODO 3) Some parameters are not used in the model or, some of them are the same such as vocab_size and pad_idx. Change it
     #TODO 4) Re-run the model with different learning rates, epochs and batch sizes
 
-    embedding_size = 512
-    num_heads = 8
-    num_encoder_layers = 3
-    num_decoder_layers = 3
+    embedding_size = 300
+    num_heads = 6
+    num_encoder_layers = 5
+    num_decoder_layers = 5
     forward_expansion = 4
-    dropout = 0.4
-    max_length = 20
+    dropout = 0.5
+    max_length = 30
     src_pad_idx = tokenizer.pad_token_id
     trg_pad_idx = tokenizer.pad_token_id
 
-    model = Transformers(vocab_size,vocab_size,src_pad_idx,trg_pad_idx,embedding_size,num_encoder_layers,forward_expansion,num_heads,dropout,device,max_length)
+    #model = Transformers(vocab_size,vocab_size,src_pad_idx,trg_pad_idx,embedding_size,num_encoder_layers,forward_expansion,num_heads,dropout,device,max_length)
+    model = TransformerImproved(vocab_size,vocab_size,src_pad_idx,trg_pad_idx,embedding_size,num_encoder_layers,forward_expansion,num_heads,dropout,device,max_length)
     model.to(device)
 
     clip = 1.0
     number_of_epochs = 5
-    learning_rate = 3e-4
+    learning_rate = 0.0004
     criterion = torch.nn.CrossEntropyLoss(ignore_index= tokenizer.pad_token_id)
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
@@ -185,8 +187,6 @@ if __name__ == '__main__':
             #print(f"After reshape Output shape: {output.shape}")
             #print(f"After reshape Labels shape: {labels.shape}")
 
-            #print("Output device and format:", output.device, output.is_contiguous(memory_format=torch.channels_last))
-            #print("Labels device and format:", labels.device)
             
             optimizer.zero_grad()
             output = output.contiguous()

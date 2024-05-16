@@ -2,3 +2,4 @@ env/
 models/
 test_data.pth
 __pycahce__
+embeddings/

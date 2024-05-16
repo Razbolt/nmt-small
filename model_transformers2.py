@@ -1,9 +1,14 @@
 import torch 
 import torch.nn as nn
 import torch.optim as optim
+import torch.nn.functional as F
 '''
 code is inspired from here : https://www.youtube.com/watch?v=U0s0f995w14
 '''
+
+#CHANGES
+# 1) Bias included in SelfAttention
+# 2) FeedForward in TransformersBlock is changed to GLU (Gated Linear Unit)
 
 class SelfAttention(nn.Module):
     def __init__(self,embedding_size,heads): # heads splitting the embedding size
@@ -55,22 +60,26 @@ class SelfAttention(nn.Module):
             
 class TransformerBlock(nn.Module):
     def __init__(self, embedding_size, heads, dropout, forward_expansion):
-        super(TransformerBlock,self).__init__()
-        self.attention = SelfAttention(embedding_size,heads)
-        self.norm1 = nn.LayerNorm(embedding_size) # similar to batch normalization but it normalizes in every layer
+        super(TransformerBlock, self).__init__()
+        self.attention = SelfAttention(embedding_size, heads)
+        self.norm1 = nn.LayerNorm(embedding_size)
         self.norm2 = nn.LayerNorm(embedding_size)
 
         self.feed_forward = nn.Sequential( 
-            nn.Linear(embedding_size, forward_expansion*embedding_size),
-            nn.ReLU(),
-            nn.Linear(forward_expansion*embedding_size,embedding_size)
-            )
+            nn.Linear(embedding_size, forward_expansion * embedding_size * 2),
+            nn.GLU(dim=-1),                                                 # A Refference to GLU https://medium.com/@tariqanwarph/activation-function-and-glu-variants-for-transformer-models-a4fcbe85323f
+            nn.Linear(forward_expansion * embedding_size, embedding_size)   # https://medium.com/deeplearningmadeeasy/glu-gated-linear-unit-21e71cd52081
+        )
         self.dropout = nn.Dropout(dropout)
+
 
     def forward(self, value, key, query,mask):
         attention = self.attention(value,key,query,mask)
 
         x = self.dropout(self.norm1(attention + query)) # query is input to norm1 and used as residual connection
+
+        if x.size(-1) % 2 != 0: # This x check ensuring the input size is even
+            x = F.pad(x, (0, 0, 0, 1))
         forward = self.feed_forward(x)
         out = self.dropout(self.norm2(forward + x)) # x is input to norm2 and used as residual connection
         return out 
@@ -136,10 +145,10 @@ class Decoder(nn.Module):
         return out 
 
 
-class Transformers(nn.Module):
-    def __init__(self, src_vocab_size,trg_vocab_size,src_pad_idx,trg_pad_idx,embedding_size = 256,num_layers= 6,forward_expansion = 4,
-                 heads= 8, dropout = 0, device = "cpu", max_length = 40):
-        super(Transformers,self).__init__()
+class TransformerImproved(nn.Module):
+    def __init__(self, src_vocab_size,trg_vocab_size,src_pad_idx,trg_pad_idx,embedding_size = 300,num_layers= 6,forward_expansion = 4,
+                 heads= 6, dropout = 0, device = "cpu", max_length = 40):
+        super(TransformerImproved,self).__init__()
 
         self.encoder = Encoder(src_vocab_size,embedding_size,num_layers, heads, device, forward_expansion, dropout, max_length)
         self.decoder = Decoder(trg_vocab_size,embedding_size,num_layers,heads,device,forward_expansion,dropout,max_length)
@@ -182,7 +191,7 @@ if __name__ == '__main__':
     trg_pad_idx = 0
     src_vocab_size = 10
     trg_vocab_size = 10
-    model = Transformers(src_vocab_size,trg_vocab_size,src_pad_idx,trg_pad_idx,device = device).to(device)
+    model = TransformerImproved(src_vocab_size,trg_vocab_size,src_pad_idx,trg_pad_idx,device = device).to(device)
 
     output = model(x,trg[:,:-1])
     print('Initial Output:',output.shape)
