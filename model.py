@@ -90,7 +90,7 @@ class Seq2Seq(nn.Module):
 
         #<sos> token is not used to replaced to target[:,0]
         decoder_input = target[:,0]         #torch.zeros(batch_size, dtype=torch.long).to(self.device) maybe i should include it check tomorrow
-
+        
 
         for t in range(1, target_len):
             decoder_output, hidden,cell = self.decoder(decoder_input, hidden,cell)

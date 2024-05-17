@@ -3,9 +3,7 @@ import re
 import torch
 from torch.utils.data import DataLoader, random_split
 import torch.nn as nn
-from transformers import T5ForConditionalGeneration, T5Tokenizer, AdamW
-
-# Import utility functions if available (assumed to be defined elsewhere)
+from transformers import T5ForConditionalGeneration, T5Tokenizer, AdamW,MarianTokenizer
 from utils import collate_fn2, set_seed
 
 # Setting the device 
@@ -13,7 +11,9 @@ device = torch.device('mps' if torch.backends.mps.is_available() else 'cpu')
 print(f'Device set to {device}')
 
 # Initialize T5 tokenizer and model
-tokenizer = T5Tokenizer.from_pretrained('t5-small')
+#tokenizer = T5Tokenizer.from_pretrained('t5-small')
+
+tokenizer = MarianTokenizer.from_pretrained('Helsinki-NLP/opus-mt-en-sv')
 model = T5ForConditionalGeneration.from_pretrained('t5-small')
 model.resize_token_embeddings(len(tokenizer))  # Adjust the model's embeddings if tokenizer has new tokens
 model.to(device)
@@ -51,9 +51,9 @@ def evaluate_model(model, data_loader, criterion, device):
             predicted_sentences = tokenizer.batch_decode(predicted_ids, skip_special_tokens=True)
             label_sentences = tokenizer.batch_decode(labels, skip_special_tokens=True)
 
-            for pred, true in zip(predicted_sentences, label_sentences):
-                print("Predicted Sentence:", pred)
-                print("True Sentence:", true)
+            #for pred, true in zip(predicted_sentences, label_sentences):
+            #    print("Predicted Sentence:", pred)
+            #    print("True Sentence:", true)
 
     return epoch_loss / len(data_loader)
 
@@ -85,15 +85,15 @@ if __name__ == '__main__':
     set_seed(42)
 
     # Create data loaders
-    train_loader = DataLoader(train_dataset, batch_size=32, collate_fn=collate_fn2, shuffle=True, drop_last=True)
-    val_loader = DataLoader(val_dataset, batch_size=32, collate_fn=collate_fn2, shuffle=False)
-    test_loader = DataLoader(test_dataset, batch_size=32, collate_fn=collate_fn2, shuffle=False)
+    train_loader = DataLoader(train_dataset, batch_size=16, collate_fn=collate_fn2, shuffle=True, drop_last=True)
+    val_loader = DataLoader(val_dataset, batch_size=16, collate_fn=collate_fn2, shuffle=False)
+    test_loader = DataLoader(test_dataset, batch_size=16, collate_fn=collate_fn2, shuffle=False)
 
     # Define the loss function and optimizer
     criterion = nn.CrossEntropyLoss(ignore_index=tokenizer.pad_token_id)
     optimizer = AdamW(model.parameters(), lr=0.0005)
 
-    number_of_epochs = 10
+    number_of_epochs = 4
 
     # Training loop
     for epoch in range(number_of_epochs):

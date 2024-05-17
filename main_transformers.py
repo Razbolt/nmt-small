@@ -165,7 +165,7 @@ if __name__ == '__main__':
     model.to(device)
 
     clip = 1.0
-    number_of_epochs = 5
+    number_of_epochs = 1
     learning_rate = 0.0004
     criterion = torch.nn.CrossEntropyLoss(ignore_index= tokenizer.pad_token_id)
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)

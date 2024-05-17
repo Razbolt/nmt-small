@@ -11,78 +11,88 @@ code is inspired from here : https://www.youtube.com/watch?v=U0s0f995w14
 # 2) FeedForward in TransformersBlock is changed to GLU (Gated Linear Unit)
 
 class SelfAttention(nn.Module):
-    def __init__(self,embedding_size,heads): # heads splitting the embedding size
-        super(SelfAttention,self).__init__()
-        self.emebedding_size = embedding_size
-        self.heads = heads
-        self.head_dim = embedding_size // heads #integer division
+    def __init__(self, emb_size, num_heads):
+        super(SelfAttention, self).__init__()
+        self.emb_size = emb_size
+        self.num_heads = num_heads
+        self.dim_per_head = emb_size // num_heads  # Dimension per attention head
 
-        assert (self.head_dim * heads == embedding_size), "Check the embedding size and heads"
+        # Ensure embedding size is divisible by number of heads
+        assert (self.dim_per_head * num_heads == emb_size), "Embedding size must be divisible by number of heads"
 
-        self.values = nn.Linear(self.head_dim,self.head_dim,bias = True)
-        self.keys = (nn.Linear(self.head_dim,self.head_dim,bias = True))
-        self.queries = (nn.Linear(self.head_dim,self.head_dim,bias = True))
-        self.fc_out = nn.Linear(self.heads*self.head_dim,embedding_size)
+        # Initialize linear transformations for each component
+        self.value_proj = nn.Linear(self.dim_per_head, self.dim_per_head, bias=True)
+        self.key_proj = nn.Linear(self.dim_per_head, self.dim_per_head, bias=True)
+        self.query_proj = nn.Linear(self.dim_per_head, self.dim_per_head, bias=True)
+        self.final_proj = nn.Linear(num_heads * self.dim_per_head, emb_size)
         
-    def forward(self,values,keys,queries,mask):
-        n = queries.shape[0] #  taking the batch size 
-        len_value, len_keys, len_queries = values.shape[1], keys.shape[1], queries.shape[1] # sequence length of values, keys and queries
-        
-        # Reshape the values, keys and queries
-        values = values.reshape(n,len_value,self.heads,self.head_dim)
-        keys = keys.reshape(n,len_keys,self.heads,self.head_dim)
-        queries = queries.reshape(n,len_queries,self.heads,self.head_dim)
+    def forward(self, value_input, key_input, query_input, mask):
+        batch_size = query_input.shape[0]  # Batch size
+        value_len, key_len, query_len = value_input.shape[1], key_input.shape[1], query_input.shape[1]  # Sequence lengths
 
-        values = self.values(values)
-        keys = self.keys(keys)
-        queries = self.queries(queries)
+        # Reshape inputs for multi-head attention
+        value_input = value_input.reshape(batch_size, value_len, self.num_heads, self.dim_per_head)
+        key_input = key_input.reshape(batch_size, key_len, self.num_heads, self.dim_per_head)
+        query_input = query_input.reshape(batch_size, query_len, self.num_heads, self.dim_per_head)
 
-        energy = torch.einsum("nqhd,nkhd->nhqk",[queries,keys]) # (n,heads,len_queries, len_keys)
-                                                                    #energy represent the attention score between each pair of tokens in the input  
-        #shape of query is (n,len_queries,heads,head_dim)
-        # shape of keys is (n,len_keys,heads,head_dim)
-        # shape of energy is (n,heads,len_queries,len_keys) 
-        scale_factor = self.head_dim ** 0.5
-        if mask != None:
-            energy = energy.masked_fill(mask == 0,float("-1e19")
-                                            )
+        # Apply linear transformations
+        value_input = self.value_proj(value_input)
+        key_input = self.key_proj(key_input)
+        query_input = self.query_proj(query_input)
+
+        # Calculate attention scores using einsum for efficient computation
+        scores = torch.einsum("bqhd, bkhd -> bhqk", [query_input, key_input])
+
+        # Scale the scores
+        scale = self.dim_per_head ** 0.5
+        if mask is not None:
+            scores = scores.masked_fill(mask == 0, float("-1e19"))
+
+        # Softmax normalization on scores
+        attention_weights = torch.softmax(scores / scale, dim=3)
+
+        # Multiply attention weights by values
+        weighted_values = torch.einsum("bhql, blhd -> bqhd", [attention_weights, value_input])
         
-        attention = torch.softmax(energy / (scale_factor),dim = 3) # (n,heads,len_queries,len_keys)
-                                                                                # dim 3 takes the len_keys and apply softmax on it
-        #attention shape is (n,heads,len_queries,len_keys)
-        #value shape is (n,len_value,heads,head_dim)
-        output = torch.einsum("nhql, nlhd->nqhd",[attention,values])
-        #after einsum output shape is (n,heads,len_queries,head_dim) # Not sure yet !
-        output = output.reshape(n, len_queries, self.heads* self.head_dim)
-        output = self.fc_out(output)
+        # Reshape and project to the original embedding size
+        weighted_values = weighted_values.reshape(batch_size, query_len, self.num_heads * self.dim_per_head)
+        output = self.final_proj(weighted_values)
 
         return output
+
             
-class TransformerBlock(nn.Module):
-    def __init__(self, embedding_size, heads, dropout, forward_expansion):
-        super(TransformerBlock, self).__init__()
-        self.attention = SelfAttention(embedding_size, heads)
-        self.norm1 = nn.LayerNorm(embedding_size)
-        self.norm2 = nn.LayerNorm(embedding_size)
+class AttentionBlock(nn.Module):
+    def __init__(self, emb_dim, num_heads, drop_rate, exp_factor):
+        super(AttentionBlock, self).__init__()
+        self.self_attention = SelfAttention(emb_dim, num_heads)  # Use paraphrased AttentionModule from previous response
+        self.layer_norm1 = nn.LayerNorm(emb_dim)
+        self.layer_norm2 = nn.LayerNorm(emb_dim)
 
-        self.feed_forward = nn.Sequential( 
-            nn.Linear(embedding_size, forward_expansion * embedding_size * 2),
-            nn.GLU(dim=-1),                                                 # A Refference to GLU https://medium.com/@tariqanwarph/activation-function-and-glu-variants-for-transformer-models-a4fcbe85323f
-            nn.Linear(forward_expansion * embedding_size, embedding_size)   # https://medium.com/deeplearningmadeeasy/glu-gated-linear-unit-21e71cd52081
+        # Feed-forward network with GLU activation
+        self.feedforward_net = nn.Sequential(
+            nn.Linear(emb_dim, exp_factor * emb_dim * 2),
+            nn.GLU(dim=-1),  # Using GLU activation for intermediate transformation
+            nn.Linear(exp_factor * emb_dim, emb_dim)  # Reduce dimension back to original after expansion
         )
-        self.dropout = nn.Dropout(dropout)
+        self.dropout_layer = nn.Dropout(drop_rate)
 
+    def forward(self, value_input, key_input, query_input, mask):
+        # Apply self-attention
+        attn_output = self.self_attention(value_input, key_input, query_input, mask)
 
-    def forward(self, value, key, query,mask):
-        attention = self.attention(value,key,query,mask)
+        # Add and normalize, use dropout
+        add_norm1 = self.dropout_layer(self.layer_norm1(attn_output + query_input))
 
-        x = self.dropout(self.norm1(attention + query)) # query is input to norm1 and used as residual connection
+        # Ensure input dimension to GLU is even
+        if add_norm1.size(-1) % 2 != 0:
+            add_norm1 = F.pad(add_norm1, (0, 0, 0, 1))
+        
+        # Pass through feed-forward network
+        ff_output = self.feedforward_net(add_norm1)
+        # Final add and normalize step with dropout
+        final_output = self.dropout_layer(self.layer_norm2(ff_output + add_norm1))
 
-        if x.size(-1) % 2 != 0: # This x check ensuring the input size is even
-            x = F.pad(x, (0, 0, 0, 1))
-        forward = self.feed_forward(x)
-        out = self.dropout(self.norm2(forward + x)) # x is input to norm2 and used as residual connection
-        return out 
+        return final_output
 
 class Encoder(nn.Module):
     def __init__(self,src_vocab_size,embedding_size, num_layers, heads,device, forward_expansion, dropout, max_length):
@@ -92,7 +102,7 @@ class Encoder(nn.Module):
         self.word_embedding = nn.Embedding(src_vocab_size,embedding_size)
         self.position_embedding = nn.Embedding(max_length,embedding_size)
 
-        self.layers = nn.ModuleList([TransformerBlock(embedding_size, heads, dropout, forward_expansion) for _ in range(num_layers)])
+        self.layers = nn.ModuleList([AttentionBlock(embedding_size, heads, dropout, forward_expansion) for _ in range(num_layers)])
         self.dropout = nn.Dropout(dropout)
 
     def forward(self,x,mask):
@@ -111,7 +121,7 @@ class DecoderBlock(nn.Module):
         self.device = device
         self.attention = SelfAttention(embedding_size,heads)
         self.norm = nn.LayerNorm(embedding_size)
-        self.transformer_block = TransformerBlock(embedding_size,heads,dropout,forward_expansion) 
+        self.transformer_block = AttentionBlock(embedding_size,heads,dropout,forward_expansion) 
         self.dropout = nn.Dropout(dropout)
 
     def forward(self,x,value,key, src_mask, trg_mask):
@@ -146,12 +156,12 @@ class Decoder(nn.Module):
 
 
 class TransformerImproved(nn.Module):
-    def __init__(self, src_vocab_size,trg_vocab_size,src_pad_idx,trg_pad_idx,embedding_size = 300,num_layers= 6,forward_expansion = 4,
-                 heads= 6, dropout = 0, device = "cpu", max_length = 40):
+    def __init__(self, src_vocab_size,trg_vocab_size,src_pad_idx,trg_pad_idx,embedding_size = 300,num_layers= 6,exp_factor = 4,
+                 heads= 6, dropout = 0.2, device = "cpu", max_length = 40):
         super(TransformerImproved,self).__init__()
 
-        self.encoder = Encoder(src_vocab_size,embedding_size,num_layers, heads, device, forward_expansion, dropout, max_length)
-        self.decoder = Decoder(trg_vocab_size,embedding_size,num_layers,heads,device,forward_expansion,dropout,max_length)
+        self.encoder = Encoder(src_vocab_size,embedding_size,num_layers, heads, device, exp_factor, dropout, max_length)
+        self.decoder = Decoder(trg_vocab_size,embedding_size,num_layers,heads,device,exp_factor,dropout,max_length)
 
         self.src_pad_idx = src_pad_idx
         self.trg_pad_idx = trg_pad_idx

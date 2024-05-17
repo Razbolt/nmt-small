@@ -3,7 +3,7 @@ import re
 import torch
 from torch.utils.data import DataLoader, random_split
 import torch.nn as nn
-from transformers import T5ForConditionalGeneration, T5Tokenizer, AdamW
+from transformers import T5ForConditionalGeneration,MarianTokenizer, T5Tokenizer, AdamW
 from utils import collate_fn2, set_seed
 import sacrebleu
 
@@ -45,7 +45,8 @@ def test_model(model, test_loader, tokenizer, device):
 
 if __name__ == '__main__':
 
-    tokenizer = T5Tokenizer.from_pretrained('t5-small')
+    #tokenizer = T5Tokenizer.from_pretrained('t5-small')
+    tokenizer = MarianTokenizer.from_pretrained('Helsinki-NLP/opus-mt-en-sv')
     model = T5ForConditionalGeneration.from_pretrained('t5-small')
     model.resize_token_embeddings(len(tokenizer))
 
